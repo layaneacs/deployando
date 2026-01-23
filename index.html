@@ -9,7 +9,7 @@
     <title>Deployando</title>
 </head>
 <body>
-    <di id="relogio-container">
+    <div id="relogio-container">
         <div class="time">
             <span id="horas">00</span>
             <span id="tempo">Horas</span>
@@ -22,7 +22,17 @@
             <span id="segundos">00</span>
             <span id="tempo">Segundos</span>
         </div>
-    </di>
+    </div>
+    <a href="#" id="btn-download" class="btn-download">📥 Baixar</a>
     <script src="src/js/main.js"></script>
+    <script>
+        document.getElementById('btn-download').addEventListener('click', function(e) {
+            e.preventDefault();
+            const link = document.createElement('a');
+            link.href = 'src/sdk/v1.txt';
+            link.download = 'v1.txt';
+            link.click();
+        });
+    </script>
 </body>
 </html>
