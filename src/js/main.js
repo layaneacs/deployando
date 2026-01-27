@@ -24,6 +24,16 @@ const relogio = setInterval(function time() {
         body.style.background = "linear-gradient(120deg,#eb37c4,#f6a3e4, #eb37c4)";
     }
 
+    if(dateToday.getDay() === 0)
+    {
+        for (let i = 0; i < horaContainer.length; i++) 
+        {
+            horaContainer[i].style.background = "#e5a03f";
+        }
+
+        body.style.background = "linear-gradient(120deg,#eb37c4,#f6a3e4, #bd802b)";
+    }
+
     horas.textContent = hora;
     minutos.textContent = minuto;
     segundos.textContent = segundo

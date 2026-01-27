@@ -1,77 +1,248 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 
+
+/* Reset e estilos base para mobile */
 * {
     margin: 0;
     padding: 0;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 600;
-    font-style: normal;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
-
 
 body {
-    height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
     background: linear-gradient(120deg,#526534,#b2bda0, #8d9e6f );
+    color: white;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    position: relative;
+    align-items: center;
+    padding: 20px;
+    overflow-x: hidden;
 }
 
+/* Container do relógio responsivo */
 #relogio-container {
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-around;
-    height: 200px;
-    width: 550px;
-    background: transparent;
-    border-radius: 3px;
-    box-shadow:  0px 10px 8px 2px;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 40px;
+    max-width: 100%;
 }
 
-#relogio-container div {
-    height: 170px;
-    width: 150px;
+/* Estilos para cada unidade de tempo */
+.time {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background: #2f3b1c;
-    color: #fff;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
-    border-radius: 3px;
-    letter-spacing: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px 15px;
+    min-width: 100px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-#relogio-container span {
-    font-weight: bolder;
-    font-size: 60px;
+/* Números do relógio */
+#horas,
+#minutos,
+#segundos {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-#relogio-container span#tempo {
-    font-size: 10px;
+/* Rótulos (Horas, Minutos, Segundos) */
+#tempo {
+    font-size: 1.1rem;
+    margin-top: 10px;
+    opacity: 0.9;
+    letter-spacing: 1px;
 }
 
+/* Botão de download otimizado para toque */
 .btn-download {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 20px;
-    background-color: #4CAF50;
+    background: linear-gradient(to right, #00b09b, #96c93d);
     color: white;
     text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 20px 40px;
+    border-radius: 50px;
+    box-shadow: 0 10px 25px rgba(0, 176, 155, 0.4);
+    transition: all 0.3s ease;
+    border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 14px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
-    position: absolute;
-    bottom: 30px;
+    min-height: 60px;
+    min-width: 280px;
+    position: relative;
+    overflow: hidden;
 }
 
-.btn-download:hover {
-    background-color: #45a049;
+/* Efeito de toque no botão */
+.btn-download:active {
+    transform: scale(0.97);
+    box-shadow: 0 5px 15px rgba(0, 176, 155, 0.3);
+}
+
+/* Efeito hover para dispositivos com mouse */
+@media (hover: hover) {
+    .btn-download:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(0, 176, 155, 0.5);
+    }
+}
+
+/* Ícone do botão */
+.btn-download::before {
+    content: "📥";
+    font-size: 1.8rem;
+    margin-right: 12px;
+}
+
+/* Indicador de loading para o download */
+.btn-download.loading::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+}
+
+/* Animação do relógio */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.03);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.time.animated {
+    animation: pulse 1s ease;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    #relogio-container {
+        gap: 10px;
+    }
+
+    .time {
+        min-width: 85px;
+        padding: 20px 10px;
+        border-radius: 15px;
+    }
+
+    #horas,
+    #minutos,
+    #segundos {
+        font-size: 2.8rem;
+    }
+
+    #tempo {
+        font-size: 1rem;
+    }
+
+    .btn-download {
+        font-size: 1.2rem;
+        min-width: 250px;
+        padding: 18px 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    #relogio-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .time {
+        width: 100%;
+        max-width: 200px;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px 25px;
+    }
+
+    #horas,
+    #minutos,
+    #segundos {
+        font-size: 2.5rem;
+    }
+
+    .btn-download {
+        min-width: 90%;
+        padding: 18px 25px;
+    }
+
+    body {
+        padding: 15px;
+    }
+}
+
+/* Suporte para telas muito pequenas (iPhone SE, etc) */
+@media (max-width: 320px) {
+    .time {
+        max-width: 100%;
+    }
+
+    #horas,
+    #minutos,
+    #segundos {
+        font-size: 2.2rem;
+    }
+}
+
+/* Melhorias para orientação paisagem */
+@media (orientation: landscape) and (max-height: 500px) {
+    body {
+        padding: 10px;
+    }
+
+    #relogio-container {
+        flex-direction: row;
+        margin-bottom: 20px;
+    }
+
+    .time {
+        min-width: 70px;
+        padding: 15px 8px;
+    }
+}
+
+/* Ajustes para modo escuro do sistema */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg,#829a5b,#566e2e);
+
+    }
+}
+
+/* Evitar zoom em inputs para iOS */
+@media screen and (max-width: 768px) {
+
+    input,
+    select,
+    textarea {
+        font-size: 16px;
+    }
 }

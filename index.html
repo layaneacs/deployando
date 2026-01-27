@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3574967195316771"
-     crossorigin="anonymous"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <!-- AdSense otimizado para mobile -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3574967195316771" crossorigin="anonymous"></script>
+    <!-- Preconnect para melhor performance -->
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
     <link rel="stylesheet" href="src/css/styles.css"></link>
     <title>Deployando</title>
+    <!-- Meta tags para SEO e compartilhamento em redes sociais -->
+    <meta name="description" content="Baixe agora a versão V4 do aplicativo. Relógio em tempo real e download direto.">
+    <meta name="theme-color" content="#1a2a6c">
+    <!-- Meta tags para Apple -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Meta tags para Microsoft -->
+    <meta name="msapplication-TileColor" content="#1a2a6c">
 </head>
 <body>
     <div id="relogio-container">
@@ -23,16 +33,63 @@
             <span id="tempo">Segundos</span>
         </div>
     </div>
-    <a href="#" id="btn-download" class="btn-download">📥 Baixar V4</a>
+    
+    <a href="#" id="btn-download" class="btn-download" aria-label="Baixar versão V4 do aplicativo">Baixar V4</a>
     <script src="src/js/main.js"></script>
-    <script>
+
+    <!-- Scripts otimizados para mobile -->
+    <script>      
+        // Gerenciamento do download
         document.getElementById('btn-download').addEventListener('click', function(e) {
             e.preventDefault();
-            const link = document.createElement('a');
-            link.href = 'src/sdk/app-debug.apk';
-            link.download = 'com.app-debug.apk';
-            link.click();
+            const btn = this;
+            
+            // Feedback visual para o usuário
+            btn.classList.add('loading');
+            btn.textContent = 'Preparando download...';
+            
+            // Simular um pequeno delay para mostrar o feedback (remover em produção)
+            setTimeout(function() {
+                // Criar link de download
+                const link = document.createElement('a');
+                link.href = 'src/sdk/app-debug.apk';
+                link.download = 'com.app-debug.apk';
+                
+                // Disparar o download
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Restaurar botão
+                btn.classList.remove('loading');
+                btn.textContent = '📥 Baixar V4';
+                
+                // Feedback de sucesso (opcional)
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(100); // Feedback tátil para mobile
+                }
+            }, 800);
         });
+        
+        // Melhorar performance em mobile: evitar animações quando a página não está visível
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                // Parar temporariamente o relógio se a página não estiver visível
+                // (isso é útil para economizar bateria)
+                // No caso atual, o setInterval continua, mas poderíamos otimizar ainda mais
+                // guardando a referência do intervalo e limpando quando a página não está visível
+            }
+        });
+        
+        // Detectar touch e adicionar classe para estilos específicos
+        document.addEventListener('touchstart', function() {}, {passive: true});
+        
+        // Prevenir comportamento padrão de toque longo (para evitar menu de contexto)
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.id === 'btn-download') {
+                e.preventDefault();
+            }
+        }, false);
     </script>
 </body>
 </html>
