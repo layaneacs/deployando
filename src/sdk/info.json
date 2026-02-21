@@ -1,3 +1,5 @@
 {
-    "version": "v0.0.1"
+    "version": "v0.1.0",
+    "releaseDate": "2025-02-21",
+    "notes": "Correção de bugs cacheados e melhorias de desempenho."
 }
